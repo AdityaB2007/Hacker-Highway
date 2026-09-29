@@ -1,5 +1,12 @@
 # Fall 2026 CSC 3501 Game Project
 
-Contributors: Aditya, Ryan, Bryce, Logan, John
+Contributors:
+<ul>
+  <li>Logan Allsup</li>
+  <li>Aditya Baisakh</li>
+  <li>Ryan Negrin</li>
+  <li>John Ramirez</li>
+  <li>Bryce Sloan</li>
+</ul>
 
-Coming Soon
+Work in progress...
