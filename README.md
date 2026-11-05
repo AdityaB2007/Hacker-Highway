@@ -3,7 +3,7 @@
 ## Description:
 Ever been stuck in Baton Rouge traffic? Then you know that getting anywhere can feel like solving a complicated logic circuit.
 
-Inspired by the daily struggles of navigating Baton Rouge roads, Hacker Highway is a browser-based educational game developed for CSC 3501: Computer Organization and Design at Louisiana State University. Players must survive five increasingly difficult lanes of digital logic challenges, covering logic gates, truth tables, Boolean algebra, binary addition, and half/full adders.
+Inspired by the daily struggles of navigating Baton Rouge roads, <b>Hacker Highway</b> is a browser-based educational game developed for <b>CSC 3501: Computer Organization and Design</b> at LSU. Players must survive five increasingly difficult lanes of digital logic challenges, covering logic gates, truth tables, Boolean algebra, binary addition, and half/full adders.
 
 Just like Baton Rouge traffic, progress isn't guaranteed. Answer questions correctly, navigate each lane, and try to make it to the finish line without losing your mind!
 
