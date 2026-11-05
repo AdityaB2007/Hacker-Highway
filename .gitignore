@@ -1,26 +1,17 @@
-# --- OS junk ---
+# OS generated files
 .DS_Store
 Thumbs.db
-desktop.ini
+Desktop.ini
 
-# --- Editor ---
+# IDE / editor settings
 .vscode/
-*.swp
-*.swo
+.idea/
 
-# --- Node (only relevant if anyone adds npm tooling later, e.g. a local dev server) ---
-node_modules/
-package-lock.json
-npm-debug.log*
-
-# --- Logs ---
+# Temporary files
+*.tmp
+*.temp
 *.log
 
-# --- Env / secrets (just in case) ---
+# Environment files
 .env
-.env.local
-
-# --- Temp/backup files ---
-*.tmp
-*.bak
-*~
+.env.*
