@@ -14,14 +14,14 @@ canvas {
 
 var player;
 
-<!--create function--> 
+// create function
 function startGame() {
     player = new component(15, 15, "red", 10, 120);
     myGameArea.start();
     
 }
 
-<!--initializing everything-->
+// initializing everything
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
@@ -36,8 +36,8 @@ var myGameArea = {
     }
 }
 
-<!--Hey this is essentially an object constructor!!!!! Horray for connected learning!-->
-<!--Think of this like Rect()-->
+// Hey this is essentially an object constructor!!!!! Horray for connected learning!
+// Think of this like Rect()
 function component(width, height, color, x, y) {
     this.width = width;
     this.height = height;
