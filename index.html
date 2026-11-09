@@ -3,16 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Hacker Highway - A digital logic game inspired by Baton Rouge traffic.">
+    <meta name="description" content="Hacker Highway - survive five lanes of digital logic.">
     <title>Hacker Highway</title>
     <link rel="stylesheet" href="style.css">
+    <script src="js/questions.js" defer></script>
+    <script src="js/game.js" defer></script>
 </head>
 
 <body>
-    <main id="game-container">
-        <!-- Game content will be added here -->
+    <main id="app">
+        <header class="game-header">
+            <h1>🚗 HACKER HIGHWAY</h1>
+            <p class="tag">
+                Survive five lanes of digital logic.
+                Baton Rouge traffic never looked so binary.
+            </p>
+        </header>
+        <div id="screen" aria-live="polite">
+            <!-- Initial welcome screen / fallback -->
+            <section class="panel">
+                <div class="center">
+                    <div class="big">🏁</div>
+                    <h2>Welcome to Hacker Highway!</h2>
+                    <p>
+                        Ever been stuck in Baton Rouge traffic?
+                        This time, you'll need more than patience
+                        to make it to your destination.
+                    </p>
+                    <p>
+                        Navigate five increasingly difficult lanes
+                        by solving digital logic challenges.
+                    </p>
+                </div>
+                <div class="highway-preview">
+                    <div class="road done">
+                        <span class="road-label">Lane 1 · Very Easy</span>
+                        <span class="road-check">✓</span>
+                    </div>
+                    <div class="road done">
+                        <span class="road-label">Lane 2 · Easy</span>
+                        <span class="road-check">✓</span>
+                    </div>
+                    <div class="road active">
+                        <span class="road-label">Lane 3 · Medium</span>
+                        <span class="car">🏎️</span>
+                        <span class="flag">🏁</span>
+                    </div>
+                    <div class="road">
+                        <span class="road-label">Lane 4 · Hard</span>
+                        <span class="flag">🏁</span>
+                    </div>
+                    <div class="road">
+                        <span class="road-label">Lane 5 · Very Hard</span>
+                        <span class="flag">🏁</span>
+                    </div>
+                </div>
+                <div class="center">
+                    <h3>🚦 Your Mission</h3>
+                </div>
+                <ul class="how">
+                    <li>Complete 15 digital logic challenges.</li>
+                    <li>Master AND, OR, XOR, and other logic gates.</li>
+                    <li>Work through truth tables and binary arithmetic.</li>
+                    <li>Survive with only three lives.</li>
+                    <li>Reach the finish line to win!</li>
+                </ul>
+                <div class="center">
+                    <button class="btn" onclick="showQuestion()">
+                        Start Your Engine →
+                    </button>
+                </div>
+            </section>
+        </div>
+        <footer class="game-footer">
+            <p>Hacker Highway · Louisiana State University</p>
+        </footer>
     </main>
-    <!-- Question Bank -->
-     <script src="js/questions.js"></script>
 </body>
 </html>
