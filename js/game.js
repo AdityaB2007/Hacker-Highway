@@ -168,3 +168,24 @@ function resolve(ok) {
         if (fb) fb.innerHTML = `<div class="fb bad"><b>Gate collision! -1 life</b> ${q.why}</div><div class="center" style="margin-top:12px"><button class="btn" onclick="showQuestion()">Try another gate →</button></div>`;
     }
 }
+
+// advance lane after clearing challenge
+function advance() {
+    if (S.redeem) { S.lives = 1; S.redeem = false; showQuestion(); return; }
+    const clearedLane = S.lane + 1;
+    S.lane++;
+    if (S.lane >= LANES.length) { showWin(); return; }
+    const nextQ = Math.floor(Math.random() * 3);
+    S.qi = nextQ;
+    S.attemptedInLane = [nextQ];
+    const screen = document.getElementById("screen");
+    if (screen) screen.innerHTML = hud() + `<div class="panel center"><div class="big">🛣️</div><h2>Lane ${clearedLane} cleared!</h2><p>Merging into <b>${LANES[S.lane].name}</b>...</p><button class="btn" onclick="showQuestion()">Merge →</button></div>`;
+}
+
+// handle redemption round when lives hit zero
+function afterZero() {
+    if (S.usedRedemption) { showGameOver(); return; }
+    S.usedRedemption = true;
+    const screen = document.getElementById("screen");
+    if (screen) screen.innerHTML = hud(true) + `<div class="panel redeem center"><div class="big">🆘</div><h2>Out of lives!</h2><p>You get one shot at redemption to earn back a life.</p><button class="btn" onclick="showQuestion(true)">Take Redemption question</button></div>`;
+}
