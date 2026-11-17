@@ -1,4 +1,6 @@
 // game state and setup
+const LANES = window.LANES || [];
+const REDEMPTION = window.REDEMPTION || {};
 const MAX_LIVES = 3;
 let S;
 const shuffle = a => { a = a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
@@ -149,10 +151,12 @@ function resolve(ok) {
     const q = S.cur, fb = document.getElementById("fb");
     if (ok) {
         S.correct++;
+        if (window.AudioManager) { try { window.AudioManager.playSFX("correct"); } catch (e) {} }
         if (fb) fb.innerHTML = `<div class="fb good"><b>Traffic clears!</b> ${q.why}</div><div class="center" style="margin-top:12px"><button class="btn" onclick="advance()">Step on the gas →</button></div>`;
         return;
     }
     S.mistakes++;
+    if (window.AudioManager) { try { window.AudioManager.playSFX("collision"); } catch (e) {} }
     if (S.redeem) {
         if (fb) fb.innerHTML = `<div class="fb bad"><b>Redemption failed.</b> ${q.why}</div><div class="center" style="margin-top:12px"><button class="btn" onclick="showGameOver()">Continue</button></div>`;
         return;
