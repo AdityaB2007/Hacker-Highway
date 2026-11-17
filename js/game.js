@@ -143,3 +143,28 @@ function showQuestion(redeem = false) {
     if (screen) screen.innerHTML = hud(redeem) + `<div class="panel ${redeem ? 'redeem' : ''}">${body}<div id="fb" aria-live="polite"></div></div>`;
     if (q.t === "circuit") drawCircuit();
 }
+
+// resolve answer outcome and rotate on failure
+function resolve(ok) {
+    const q = S.cur, fb = document.getElementById("fb");
+    if (ok) {
+        S.correct++;
+        if (fb) fb.innerHTML = `<div class="fb good"><b>Traffic clears!</b> ${q.why}</div><div class="center" style="margin-top:12px"><button class="btn" onclick="advance()">Step on the gas →</button></div>`;
+        return;
+    }
+    S.mistakes++;
+    if (S.redeem) {
+        if (fb) fb.innerHTML = `<div class="fb bad"><b>Redemption failed.</b> ${q.why}</div><div class="center" style="margin-top:12px"><button class="btn" onclick="showGameOver()">Continue</button></div>`;
+        return;
+    }
+    S.lives--;
+    if (S.lives <= 0) {
+        if (fb) fb.innerHTML = `<div class="fb bad"><b>Out of lives!</b> ${q.why}</div><div class="center" style="margin-top:12px"><button class="btn" onclick="afterZero()">Continue</button></div>`;
+    } else {
+        const pool = [0, 1, 2].filter(i => !S.attemptedInLane.includes(i));
+        const nextQ = pool.length > 0 ? pool[Math.floor(Math.random() * pool.length)] : [0, 1, 2].find(i => i !== S.qi);
+        S.qi = nextQ;
+        S.attemptedInLane.push(nextQ);
+        if (fb) fb.innerHTML = `<div class="fb bad"><b>Gate collision! -1 life</b> ${q.why}</div><div class="center" style="margin-top:12px"><button class="btn" onclick="showQuestion()">Try another gate →</button></div>`;
+    }
+}
