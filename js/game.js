@@ -72,3 +72,17 @@ function submitFill() {
     if (sub) sub.disabled = true;
     resolve(ok);
 }
+
+// handle multiple choice pick
+function pick(i) {
+    if (S.locked) return;
+    S.locked = true;
+    const q = S.cur, btns = document.querySelectorAll(".opt");
+    const ok = q.order[i].ok;
+    btns.forEach((b, j) => {
+        b.disabled = true;
+        if (q.order[j].ok) b.classList.add("right");
+    });
+    if (!ok) btns[i].classList.add("wrong");
+    resolve(ok);
+}
