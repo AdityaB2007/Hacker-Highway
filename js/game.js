@@ -27,3 +27,23 @@ function drawCircuit() {
     <circle cx="315" cy="80" r="20" fill="${color}"/><text x="315" y="87" fill="#071321" font-size="22" font-weight="bold" text-anchor="middle">?</text>
     </svg><div class="output">Press Confirm to check your circuit.</div>`;
 }
+
+// toggle circuit switches
+function toggleInput(i) {
+    if (S.locked) return;
+    S.inputs[i] = 1 - S.inputs[i];
+    drawCircuit();
+    const fb = document.getElementById("fb");
+    if (fb) fb.innerHTML = "";
+}
+
+// submit circuit and penalize wrong gate
+function submitCircuit() {
+    if (S.locked) return;
+    const q = S.cur;
+    S.locked = true;
+    const sub = document.getElementById("sub");
+    if (sub) sub.disabled = true;
+    const ok = gateOutput(q.gate, ...S.inputs) === q.target;
+    resolve(ok);
+}
