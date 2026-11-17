@@ -1,3 +1,22 @@
+// game state and setup
+const MAX_LIVES = 3;
+let S;
+const shuffle = a => { a = a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+
+function newGame() {
+    const firstQ = Math.floor(Math.random() * 3);
+    S = {
+        lane: 0,
+        qi: firstQ,
+        lives: MAX_LIVES,
+        usedRedemption: false,
+        mistakes: 0,
+        correct: 0,
+        locked: false,
+        attemptedInLane: [firstQ]
+    };
+}
+
 // logic gate output evaluation
 function gateOutput(g, a, b) {
     if (g === "AND") return a & b;
