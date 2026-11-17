@@ -248,3 +248,23 @@ window.LANES = [
 { t:"mc", q:"A half adder receives inputs A = 1 and B = 1. What are its Sum and C-out outputs?", o:["Sum = 0, C-out = 1","Sum = 1, C-out = 0","Sum = 1, C-out = 1","Sum = 0, C-out = 0"], a:0, why:"1 + 1 = 10 in binary: Sum = 0, carry = 1." }
 ]}
 ];
+
+window.LANES.push(
+{ name:"Lane 3 – Medium", sub:"Multi-gate circuits and adders", qs:[
+{ t:"fill", q:"Complete the truth table below for XNOR. Click each blank to set it to 0 or 1.", table:{ h:["A","B","Output"], r:[[0,0,"?"],[0,"?",0],[1,0,"?"],["?",1,1]] }, ans:[1,1,0,1], why:"XNOR outputs 1 when inputs match." },
+{ t:"mc", q:"A full adder receives inputs A = 1, B = 0, and C-in = 1. What are its Sum and C-out outputs?", o:["Sum = 0, Carry-out = 1","Sum = 1, Carry-out = 0","Sum = 1, Carry-out = 1"], a:0, why:"1 + 0 + 1 = 10: Sum = 0, Carry-out = 1." },
+{ t:"circuit", gate:"XNOR", initial:[0,1], target:1, q:"Signal matching challenge: Set the two inputs equal so the XNOR gate outputs 1.", why:"XNOR outputs 1 when inputs match." }
+]},
+{ name:"Lane 4 – Hard", sub:"Full adders and Boolean expressions", qs:[
+{ t:"mc", q:"According to De Morgan's Law, which Boolean expression is equivalent to (A + B)'?", o:["A' + B'","A' · B'","A · B'","A' · B"], a:1, why:"(A + B)' = A' · B'." },
+{ t:"mc", q:"A full adder receives A = 1, B = 1, and C-in = 1. What are its Sum and C-out outputs?", o:["Sum = 0, Carry-out = 1","Sum = 1, Carry-out = 0","Sum = 1, Carry-out = 1","Sum = 1, Carry-out = 2"], a:2, why:"1 + 1 + 1 = 11: Sum = 1, Carry-out = 1." },
+{ t:"circuit", gate:"NAND", initial:[1,1], target:1, q:"Emergency bypass: Use the NAND gate to output 1 and open the bypass road.", why:"NAND outputs 0 only for 1,1." }
+]},
+{ name:"Lane 5 – Very Hard", sub:"Multi-step circuit analysis and combined adders", qs:[
+{ t:"mc", q:"Two 2-bit binary numbers, 11 and 11, are added using a half adder and full adder. What is the final 3-bit result?", o:["101","110","100"], a:1, why:"3 + 3 = 6 = 110 in binary." },
+{ t:"circuit", gate:"NOR", initial:[1,1], target:1, q:"Final traffic control: Configure a NOR gate to output 1.", why:"NOR outputs 1 only when both are 0." },
+{ t:"mc", q:"A full adder has inputs A, B, and Carry-in (Cin). Which Boolean expression represents Carry-out (Cout)?", o:["A ⊕ B ⊕ Cin","A · B · Cin","(A · B) + (Cin · (A ⊕ B))"], a:2, why:"Cout = (A · B) + (Cin · (A ⊕ B))." }
+]}
+);
+
+window.REDEMPTION = { t:"mc", q:"REDEMPTION: Let A = 1000000 and B = 0000011. Determine the sum of A and B (in base 10).", o:["6006","69","67","3501"], a:2, why:"64 + 3 = 67." };
