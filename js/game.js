@@ -118,3 +118,28 @@ function hud(redeem) {
     }).join("");
     return `<div class="panel"><div class="hud"><div>${lane.name}</div><div>Lane ${S.lane + 1} / ${LANES.length}</div><div class="traffic-status"><span>Lives: ${S.lives}/3</span><div class="traffic-signal"><span class="bulb red ${S.lives === 1 ? 'on' : ''}"></span><span class="bulb yellow ${S.lives === 2 ? 'on' : ''}"></span><span class="bulb green ${S.lives === 3 ? 'on' : ''}"></span></div></div></div><div class="highway">${roads}</div></div>`;
 }
+
+// display current active question
+function showQuestion(redeem = false) {
+    S.locked = false;
+    const lane = LANES[S.lane];
+    const q = redeem ? REDEMPTION : lane.qs[S.qi];
+    S.cur = q; S.redeem = redeem;
+    let body = `<div class="diff">${redeem ? "REDEMPTION" : lane.sub}</div><div class="q">${q.q}</div>`;
+    if (q.table) {
+        body += `<table class="tt"><tr>${q.table.h.map(h => `<th>${h}</th>`).join("")}</tr>` +
+            q.table.r.map((row, ri) => `<tr>${row.map((c, ci) => c === "?" ? `<td><button class="tog" data-r="${ri}" data-c="${ci}" onclick="cycle(this)">?</button></td>` : `<td>${c}</td>`).join("")}</tr>`).join("") + `</table>`;
+    }
+    if (q.t === "circuit") {
+        S.inputs = q.initial.slice();
+        body += `<div class="circuit" id="circuit"></div><div class="center"><button class="btn" id="sub" onclick="submitCircuit()">Confirm</button></div>`;
+    } else if (q.t === "mc") {
+        q.order = shuffle(q.o.map((txt, i) => ({ txt, ok: i === q.a })));
+        body += q.order.map((o, i) => `<button class="opt" onclick="pick(${i})"><b>${"ABCD"[i]}.</b> ${o.txt}</button>`).join("");
+    } else {
+        body += `<div class="center"><button class="btn" id="sub" onclick="submitFill()" disabled>Submit</button></div>`;
+    }
+    const screen = document.getElementById("screen");
+    if (screen) screen.innerHTML = hud(redeem) + `<div class="panel ${redeem ? 'redeem' : ''}">${body}<div id="fb" aria-live="polite"></div></div>`;
+    if (q.t === "circuit") drawCircuit();
+}
