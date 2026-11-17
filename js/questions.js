@@ -235,3 +235,16 @@ window.redemptionQuestion = {
     ],
     answer: "C"
 };
+
+window.LANES = [
+{ name:"Lane 1 – Very Easy", sub:"Basic logic gates and simple outputs", qs:[
+{ t:"circuit", gate:"AND", initial:[0,0], target:1, q:"Traffic signal challenge: Set A and B so the AND circuit outputs 1 and opens the road.", why:"AND outputs 1 only when A = 1 and B = 1." },
+{ t:"mc", q:"A NOT gate receives an input of 1. What is the output?", o:["0","1","2"], a:0, why:"NOT inverts its input, so NOT 1 = 0." },
+{ t:"mc", q:"A half-adder receives A = 0 and B = 1. What are its Sum and C-out outputs?", o:["Sum = 0, Carry = 1","Sum = 1, Carry = 1","Sum = 1, Carry = 0"], a:2, why:"Sum = A ⊕ B = 1 and Carry = A · B = 0." }
+]},
+{ name:"Lane 2 – Easy", sub:"Binary numbers and 2-input truth tables", qs:[
+{ t:"mc", q:"An XOR gate receives 6-bit inputs A = 101001 and B = 100101. What is the output?", o:["101001","001100","110010","001110"], a:1, why:"XOR bit by bit: 101001 ⊕ 100101 = 001100." },
+{ t:"circuit", gate:"OR", initial:[0,0], target:1, q:"Road barrier challenge: Set the OR gate inputs to output 1 and lift the barrier.", why:"OR outputs 1 when at least one input is 1." },
+{ t:"mc", q:"A half adder receives inputs A = 1 and B = 1. What are its Sum and C-out outputs?", o:["Sum = 0, C-out = 1","Sum = 1, C-out = 0","Sum = 1, C-out = 1","Sum = 0, C-out = 0"], a:0, why:"1 + 1 = 10 in binary: Sum = 0, carry = 1." }
+]}
+];
