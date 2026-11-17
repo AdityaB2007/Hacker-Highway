@@ -47,3 +47,28 @@ function submitCircuit() {
     const ok = gateOutput(q.gate, ...S.inputs) === q.target;
     resolve(ok);
 }
+
+// cycle truth table cell between 0 and 1
+function cycle(btn) {
+    if (S.locked) return;
+    btn.textContent = btn.textContent === "1" ? "0" : "1";
+    btn.classList.add("set");
+    const sub = document.getElementById("sub");
+    if (sub) sub.disabled = ![...document.querySelectorAll(".tog")].every(b => b.textContent !== "?");
+}
+
+// check truth table fill
+function submitFill() {
+    if (S.locked) return;
+    S.locked = true;
+    const q = S.cur, togs = [...document.querySelectorAll(".tog")];
+    let ok = true;
+    togs.forEach((b, i) => {
+        const good = Number(b.textContent) === q.ans[i];
+        b.classList.add(good ? "right" : "wrong");
+        if (!good) ok = false;
+    });
+    const sub = document.getElementById("sub");
+    if (sub) sub.disabled = true;
+    resolve(ok);
+}
