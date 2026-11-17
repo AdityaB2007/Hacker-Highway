@@ -105,3 +105,16 @@ function pick(i) {
     if (!ok) btns[i].classList.add("wrong");
     resolve(ok);
 }
+
+// hud with signal light and road progress
+function hud(redeem) {
+    const lane = LANES[S.lane];
+    const roads = LANES.map((item, i) => {
+        const completed = i < S.lane;
+        const active = i === S.lane;
+        const progress = completed ? 88 : active ? 10 : 5;
+        const obstacles = active ? [35, 60, 80].map((x, j) => `<div class="traffic" style="left:${x}%" title="${RIVALS[j].name}">${rivalCar(RIVALS[j])}</div>`).join("") : "";
+        return `<div class="road ${completed ? 'done' : active ? 'active' : ''}"><span class="road-label">Lane ${i + 1} · ${["Very Easy", "Easy", "Medium", "Hard", "Very Hard"][i]}</span>${obstacles}${active ? `<div class="car" style="left:${progress}%">${LSU_CAR}</div>` : ""}${completed ? '<span class="road-check">✅</span>' : ''}<span class="flag">🏁</span></div>`;
+    }).join("");
+    return `<div class="panel"><div class="hud"><div>${lane.name}</div><div>Lane ${S.lane + 1} / ${LANES.length}</div><div class="traffic-status"><span>Lives: ${S.lives}/3</span><div class="traffic-signal"><span class="bulb red ${S.lives === 1 ? 'on' : ''}"></span><span class="bulb yellow ${S.lives === 2 ? 'on' : ''}"></span><span class="bulb green ${S.lives === 3 ? 'on' : ''}"></span></div></div></div><div class="highway">${roads}</div></div>`;
+}
