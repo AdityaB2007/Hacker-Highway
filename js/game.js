@@ -189,3 +189,26 @@ function afterZero() {
     const screen = document.getElementById("screen");
     if (screen) screen.innerHTML = hud(true) + `<div class="panel redeem center"><div class="big">🆘</div><h2>Out of lives!</h2><p>You get one shot at redemption to earn back a life.</p><button class="btn" onclick="showQuestion(true)">Take Redemption question</button></div>`;
 }
+
+// victory screen with lsu tiger
+function showWin() {
+    S.lane = LANES.length - 1;
+    const screen = document.getElementById("screen");
+    if (!screen) return;
+    screen.innerHTML = `<div class="panel center"><div class="big">🐯</div><h2>You made it!</h2><p style="font-size:1.15rem;font-weight:bold;color:var(--good)">Congratulations you survived Baton Rouge traffic and made it to LSU</p><p>Correct gates: ${S.correct} · Collisions: ${S.mistakes}${S.usedRedemption ? " · Redemption used" : ""}</p><button class="btn" onclick="showStart()">Drive again</button></div>`;
+}
+
+// gridlock game over screen
+function showGameOver() {
+    const screen = document.getElementById("screen");
+    if (!screen) return;
+    screen.innerHTML = `<div class="panel center"><div class="big">🚨</div><h2>Gridlock!</h2><p>You ran out of lives in <b>${LANES[Math.min(S.lane, LANES.length - 1)].name}</b>.</p><p>Correct: ${S.correct} · Mistakes: ${S.mistakes}</p><button class="btn" onclick="showStart()">Try again</button></div>`;
+}
+
+function showStart() {
+    newGame();
+    showQuestion();
+}
+
+window.showQuestion = showQuestion;
+window.startGame = showStart;
