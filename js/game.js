@@ -145,6 +145,7 @@ function showQuestion(redeem = false) {
     const screen = document.getElementById("screen");
     if (screen) screen.innerHTML = `<div id="hud-wrap">${hud(redeem)}</div><div class="panel ${redeem ? 'redeem' : ''}">${body}<div id="fb" aria-live="polite"></div></div>`;
     if (q.t === "circuit") drawCircuit();
+    if (typeof window.scrollTo === "function") window.scrollTo(0, 0);
 }
 
 // resolve answer outcome and rotate on failure
