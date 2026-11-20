@@ -107,7 +107,7 @@ function hud(redeem) {
         const active = i === S.lane;
         const progress = completed ? 88 : active ? 10 : 5;
         const obstacles = active ? [35, 60, 80].map((x, j) => `<div class="traffic" style="left:${x}%" title="${RIVALS[j].name}">${rivalCar(RIVALS[j])}</div>`).join("") : "";
-        return `<div class="road ${completed ? 'done' : active ? 'active' : ''}"><span class="road-label">Lane ${i + 1} · ${["Very Easy", "Easy", "Medium", "Hard", "Very Hard"][i]}</span>${obstacles}${active ? `<div class="car" style="left:${progress}%">${LSU_CAR}</div>` : ""}${completed ? '<span class="road-check">✅</span>' : ''}<span class="flag">🏁</span></div>`;
+        return `<div class="road ${completed ? 'done' : active ? 'active' : ''}"><span class="road-label">Lane ${i + 1} - ${["Very Easy", "Easy", "Medium", "Hard", "Very Hard"][i]}</span>${obstacles}${active ? `<div class="car" style="left:${progress}%">${LSU_CAR}</div>` : ""}${completed ? '<span class="road-check">CLEAR</span>' : ''}<span class="flag" aria-label="Finish"></span></div>`;
     }).join("");
     return `<div class="panel"><div class="hud"><div>${lane.name}</div><div>Lane ${S.lane + 1} / ${LANES.length}</div><div class="traffic-status"><span>Lives: ${S.lives}/3</span><div class="traffic-signal"><span class="bulb red ${S.lives === 1 ? 'on' : ''}"></span><span class="bulb yellow ${S.lives === 2 ? 'on' : ''}"></span><span class="bulb green ${S.lives === 3 ? 'on' : ''}"></span></div></div></div><div class="highway">${roads}</div></div>`;
 }
@@ -143,7 +143,7 @@ function resolve(ok) {
     if (ok) {
         S.correct++;
         if (window.AudioManager) { try { window.AudioManager.playSFX("correct"); } catch (e) {} }
-        if (fb) fb.innerHTML = `<div class="fb good"><b>Traffic clears!</b> ${q.why}</div><div class="center" style="margin-top:12px"><button class="btn" onclick="advance()">Step on the gas →</button></div>`;
+        if (fb) fb.innerHTML = `<div class="fb good"><b>Correct.</b> ${q.why}</div><div class="center" style="margin-top:12px"><button class="btn" onclick="advance()">Next Lane</button></div>`;
         return;
     }
     S.mistakes++;
@@ -162,7 +162,7 @@ function resolve(ok) {
     if (S.lives <= 0) {
         if (fb) fb.innerHTML = `<div class="fb bad"><b>Out of lives!</b> ${q.why}</div><div class="center" style="margin-top:12px"><button class="btn" onclick="afterZero()">Continue</button></div>`;
     } else {
-        if (fb) fb.innerHTML = `<div class="fb bad"><b>Gate collision! -1 life</b> ${q.why}</div><div class="center" style="margin-top:12px"><button class="btn" onclick="showQuestion()">Try another gate →</button></div>`;
+        if (fb) fb.innerHTML = `<div class="fb bad"><b>Wrong (-1 life).</b> ${q.why}</div><div class="center" style="margin-top:12px"><button class="btn" onclick="showQuestion()">Next Question</button></div>`;
     }
 }
 
@@ -175,27 +175,27 @@ function advance() {
     S.qi = nextQ;
     S.attemptedInLane = [nextQ];
     const screen = document.getElementById("screen");
-    if (screen) screen.innerHTML = hud() + `<div class="panel center"><div class="big">🛣️</div><h2>Lane ${clearedLane} cleared!</h2><p>Merging into <b>${LANES[S.lane].name}</b>...</p><button class="btn" onclick="showQuestion()">Merge →</button></div>`;
+    if (screen) screen.innerHTML = hud() + `<div class="panel center"><h2>Lane ${clearedLane} Cleared</h2><p>Up next: <b>${LANES[S.lane].name}</b></p><button class="btn" onclick="showQuestion()">Continue</button></div>`;
 }
 
 function afterZero() {
     if (S.usedRedemption) { showGameOver(); return; }
     S.usedRedemption = true;
     const screen = document.getElementById("screen");
-    if (screen) screen.innerHTML = hud(true) + `<div class="panel redeem center"><div class="big">🆘</div><h2>Out of lives!</h2><p>You get one shot at redemption to earn back a life.</p><button class="btn" onclick="showQuestion(true)">Take Redemption question</button></div>`;
+    if (screen) screen.innerHTML = hud(true) + `<div class="panel redeem center"><h2>No Lives Left</h2><p>Answer the redemption question correctly to earn 1 life back.</p><button class="btn" onclick="showQuestion(true)">Take Redemption Question</button></div>`;
 }
 
 function showWin() {
     S.lane = LANES.length - 1;
     const screen = document.getElementById("screen");
     if (!screen) return;
-    screen.innerHTML = `<div class="panel center"><div class="big">🐯</div><h2>You made it!</h2><p style="font-size:1.15rem;font-weight:bold;color:var(--good)">Congratulations you survived Baton Rouge traffic and made it to LSU</p><p>Correct gates: ${S.correct} · Collisions: ${S.mistakes}${S.usedRedemption ? " · Redemption used" : ""}</p><button class="btn" onclick="showStart()">Drive again</button></div>`;
+    screen.innerHTML = `<div class="panel center"><div class="win-badge" id="win-graphic">LSU</div><h2>You made it!</h2><p style="font-size:1.15rem;font-weight:bold;color:var(--good)">Congratulations you survived Baton Rouge traffic and made it to LSU</p><p>Correct: ${S.correct} | Wrong: ${S.mistakes}${S.usedRedemption ? " | Redemption used" : ""}</p><button class="btn" onclick="showStart()">Play Again</button></div>`;
 }
 
 function showGameOver() {
     const screen = document.getElementById("screen");
     if (!screen) return;
-    screen.innerHTML = `<div class="panel center"><div class="big">🚨</div><h2>Gridlock!</h2><p>You ran out of lives in <b>${LANES[Math.min(S.lane, LANES.length - 1)].name}</b>.</p><p>Correct: ${S.correct} · Mistakes: ${S.mistakes}</p><button class="btn" onclick="showStart()">Try again</button></div>`;
+    screen.innerHTML = `<div class="panel center"><h2>Game Over</h2><p>Ran out of lives on <b>${LANES[Math.min(S.lane, LANES.length - 1)].name}</b>.</p><p>Correct: ${S.correct} | Wrong: ${S.mistakes}</p><button class="btn" onclick="showStart()">Play Again</button></div>`;
 }
 
 function showStart() {
