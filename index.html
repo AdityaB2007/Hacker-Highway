@@ -14,64 +14,56 @@
 <body>
     <main id="app">
         <header class="game-header">
-            <h1>🚗 HACKER HIGHWAY</h1>
+            <h1>HACKER HIGHWAY</h1>
         </header>
         <div id="screen" aria-live="polite">
-            <!-- Initial welcome screen / fallback -->
             <section class="panel">
                 <div class="center">
-                    <div class="big">🏁</div>
-                    <h2>Welcome to Hacker Highway!</h2>
+                    <h2>CSC 3501 Digital Logic Game</h2>
                     <p>
-                        Ever been stuck in Baton Rouge traffic?
-                        This time, you'll need more than patience
-                        to make it to your destination.
-                    </p>
-                    <p>
-                        Navigate five increasingly difficult lanes
-                        by solving digital logic challenges.
+                        Clear five lanes of logic gates, truth tables, and adder questions to get to LSU.
                     </p>
                 </div>
                 <div class="highway">
                     <div class="road done">
-                        <span class="road-label">Lane 1 · Very Easy</span>
-                        <span class="road-check">✓</span>
+                        <span class="road-label">Lane 1 - Very Easy</span>
+                        <span class="road-check">CLEAR</span>
                     </div>
                     <div class="road done">
-                        <span class="road-label">Lane 2 · Easy</span>
-                        <span class="road-check">✓</span>
+                        <span class="road-label">Lane 2 - Easy</span>
+                        <span class="road-check">CLEAR</span>
                     </div>
                     <div class="road active">
-                        <span class="road-label">Lane 3 · Medium</span>
-                        <span class="car" style="left: 45%; font-size: 1.6rem;">🏎️</span>
-                        <span class="flag">🏁</span>
+                        <span class="road-label">Lane 3 - Medium</span>
+                        <span class="car preview-car" aria-label="LSU car"></span>
+                        <span class="flag" aria-label="Finish"></span>
                     </div>
                     <div class="road">
-                        <span class="road-label">Lane 4 · Hard</span>
-                        <span class="flag">🏁</span>
+                        <span class="road-label">Lane 4 - Hard</span>
+                        <span class="flag" aria-label="Finish"></span>
                     </div>
                     <div class="road">
-                        <span class="road-label">Lane 5 · Very Hard</span>
-                        <span class="flag">🏁</span>
+                        <span class="road-label">Lane 5 - Very Hard</span>
+                        <span class="flag" aria-label="Finish"></span>
                     </div>
                 </div>
                 <div class="center">
-                    <h3>🚦 Your Mission</h3>
+                    <h3>Rules</h3>
                 </div>
                 <ul class="how">
-                    <li>Survive five lanes of digital logic challenges.</li>
-                    <li>Master logic gates, truth tables, and binary arithmetic.</li>
-                    <li>Survive with only three lives to reach LSU!</li>
+                    <li>5 lanes, 1 random question per lane to advance.</li>
+                    <li>Topics: logic gates, truth tables, Boolean algebra, and adders.</li>
+                    <li>3 lives total. Wrong answers cost a life and swap in a new question.</li>
                 </ul>
                 <div class="center">
                     <button class="btn" onclick="showQuestion()">
-                        Start Your Engine →
+                        Start Game
                     </button>
                 </div>
             </section>
         </div>
         <footer class="game-footer">
-            <p>Hacker Highway · Louisiana State University</p>
+            <p>Hacker Highway - LSU CSC 3501</p>
         </footer>
     </main>
 </body>

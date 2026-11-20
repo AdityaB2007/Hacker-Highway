@@ -1,22 +1,22 @@
 /* css variables */
 
 :root {
-    --bg: #090d1b;
-    --panel: #151b30;
-    --panel-light: #202944;
+    --bg: #0e1015;
+    --panel: #171a22;
+    --panel-light: #202533;
     --purple: #461d7c;
     --purple-light: #7044a5;
     --gold: #fdd023;
-    --road: #252b3d;
-    --road-line: #e9c52b;
-    --text: #f1f2f8;
-    --muted: #a3abc2;
-    --accent: #b18ae0;
-    --good: #35d69a;
-    --bad: #ff5c70;
+    --road: #1f232b;
+    --road-line: #f5c518;
+    --text: #f0f2f7;
+    --muted: #98a0b5;
+    --accent: #fdd023;
+    --good: #2ee59d;
+    --bad: #ff4d63;
     --warning: #ffca45;
-    --border: #343d59;
-    --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    --border: #2e3445;
+    --shadow: 0 5px 0 rgba(0, 0, 0, 0.55);
 }
 
 /* global styles */
@@ -34,12 +34,8 @@ body {
     min-height: 100vh;
     padding: 20px;
     font-family: "Segoe UI", system-ui, sans-serif;
-    background:
-        radial-gradient(
-            circle at top,
-            #20143b 0%,
-            var(--bg) 55%
-        );
+    background-color: var(--bg);
+    background-image: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0 2px, transparent 2px 6px);
     color: var(--text);
     display: flex;
     justify-content: center;
@@ -73,10 +69,9 @@ h1 {
     font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 900;
     letter-spacing: 3px;
+    text-transform: uppercase;
     color: var(--gold);
-    text-shadow:
-        0 0 12px rgba(253, 208, 35, 0.25),
-        3px 3px 0 var(--purple);
+    text-shadow: 3px 3px 0 var(--purple), 6px 6px 0 #000;
 }
 
 h2 {
@@ -91,19 +86,28 @@ h2 {
     line-height: 1.5;
 }
 
-/* styling the panels */
+/* panels */
 
 .panel {
     padding: 22px;
     margin-bottom: 16px;
     background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 16px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
     box-shadow: var(--shadow);
+    animation: panelIn 0.22s ease-out;
 }
 
 .panel p {
     line-height: 1.65;
+}
+
+.game-footer {
+    text-align: center;
+    margin-top: 10px;
+    color: var(--muted);
+    font-family: "Courier New", monospace;
+    font-size: 0.8rem;
 }
 
 /* game HUD */
@@ -114,9 +118,15 @@ h2 {
     align-items: center;
     flex-wrap: wrap;
     gap: 12px;
+    padding: 10px 14px;
+    background: #10131a;
+    border: 2px solid var(--border);
+    border-radius: 6px;
     font-family: "Courier New", monospace;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
 }
 
 .traffic-status {
@@ -127,12 +137,12 @@ h2 {
 
 .traffic-signal {
     display: flex;
-    flex-direction: column;
-    gap: 5px;
-    padding: 7px;
+    flex-direction: row;
+    gap: 6px;
+    padding: 6px 9px;
     background: #080b13;
     border: 2px solid #535c73;
-    border-radius: 10px;
+    border-radius: 6px;
 }
 
 .bulb {
@@ -157,6 +167,12 @@ h2 {
 .bulb.on {
     opacity: 1;
     box-shadow: 0 0 12px currentColor;
+    animation: signalPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes signalPulse {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.35); }
 }
 
 .bulb.red.on {
@@ -181,68 +197,89 @@ h2 {
 
 .road {
     position: relative;
-    height: 62px;
+    height: 70px;
     overflow: hidden;
     background: var(--road);
-    border: 2px solid #39425b;
-    border-radius: 10px;
-    transition:
-        background 0.25s ease,
-        border-color 0.25s ease;
+    border: 2px solid #363d4f;
+    border-radius: 6px;
+    box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.08), inset 0 -2px 0 rgba(255, 255, 255, 0.08);
+    transition: background 0.25s ease, border-color 0.25s ease;
 }
-
-/* dashed yellow road markings */
 
 .road::before {
     content: "";
     position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
+    top: 62%; left: 0; right: 0;
     height: 3px;
     transform: translateY(-50%);
-    background: repeating-linear-gradient(
-        90deg,
-        var(--road-line) 0 25px,
-        transparent 25px 48px
-    );
-    opacity: 0.65;
+    background: repeating-linear-gradient(90deg, var(--road-line) 0 26px, transparent 26px 52px);
+    background-size: 52px 3px;
+    animation: roadScroll 1.8s linear infinite;
+    opacity: 0.35;
 }
 
-.road.active {
-    background: #302544;
-    border-color: var(--gold);
-    box-shadow:
-        inset 0 0 15px rgba(253, 208, 35, 0.08);
+@keyframes roadScroll {
+    from { background-position-x: 0; }
+    to { background-position-x: -52px; }
 }
 
-.road.done {
-    background: #18352e;
-    border-color: var(--good);
-}
+.road.active { background: #252035; border-color: var(--gold); box-shadow: inset 0 0 18px rgba(253, 208, 35, 0.14); }
+.road.active::before { animation-duration: 0.42s; opacity: 0.9; }
+.road.done { background: #162e27; border-color: var(--good); }
+.road.done::before { animation: none; opacity: 0.45; }
 
 .road-label {
     position: absolute;
     top: 4px;
-    left: 9px;
+    left: 8px;
     z-index: 3;
-    padding: 2px 7px;
+    padding: 2px 6px;
     background: rgba(8, 11, 22, 0.85);
     border-radius: 5px;
     color: #e8e8f2;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     font-weight: bold;
 }
 
 .car {
     position: absolute;
-    top: 50%;
+    top: 62%;
     z-index: 2;
     width: 58px;
     height: 36px;
     transform: translateY(-50%);
     transition: left 0.7s ease;
     filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.6));
+    animation: carDrive 0.35s ease-in-out infinite alternate;
+}
+
+.car::after {
+    content: "";
+    position: absolute;
+    left: 92%; top: 18%;
+    width: 44px; height: 64%;
+    clip-path: polygon(0 32%, 100% 0, 100% 100%, 0 68%);
+    background: linear-gradient(90deg, rgba(253, 208, 35, 0.45), transparent);
+    pointer-events: none;
+}
+
+.car.preview-car {
+    width: 52px; height: 22px;
+    background: var(--purple);
+    border: 2px solid var(--gold);
+    border-radius: 6px 14px 6px 6px;
+    box-shadow: inset 0 -6px 0 var(--gold);
+    animation: previewCruise 4.2s linear infinite, carDrive 0.3s ease-in-out infinite alternate;
+}
+
+@keyframes carDrive {
+    from { transform: translateY(calc(-50% - 1px)); }
+    to { transform: translateY(calc(-50% + 1px)); }
+}
+
+@keyframes previewCruise {
+    0% { left: 6%; }
+    100% { left: 82%; }
 }
 
 .car svg {
@@ -253,20 +290,38 @@ h2 {
 
 .flag {
     position: absolute;
-    top: 50%;
-    right: 9px;
-    transform: translateY(-50%);
-    font-size: 1.4rem;
+    top: 0; bottom: 0; right: 0;
+    width: 16px;
+    z-index: 2;
+    background-image: repeating-conic-gradient(#f0f2f7 0% 25%, #111318 0% 50%);
+    background-size: 8px 8px;
+    border-left: 2px solid var(--gold);
 }
 
 .traffic {
     position: absolute;
-    top: 50%;
+    top: 62%;
     z-index: 1;
     width: 55px;
     height: 35px;
     transform: translateY(-50%);
     filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.6));
+    animation: trafficWeave 2.4s ease-in-out infinite alternate;
+}
+
+.traffic:nth-of-type(2) {
+    animation-duration: 3.1s;
+    animation-delay: -1.1s;
+}
+
+.traffic:nth-of-type(3) {
+    animation-duration: 2.1s;
+    animation-delay: -0.6s;
+}
+
+@keyframes trafficWeave {
+    from { transform: translate(-6px, -50%); }
+    to { transform: translate(8px, -50%); }
 }
 
 .traffic svg {
@@ -277,10 +332,12 @@ h2 {
 
 .road-check {
     position: absolute;
-    top: 50%;
-    right: 45px;
+    top: 50%; right: 26px; z-index: 3;
     transform: translateY(-50%);
-    font-size: 1.3rem;
+    padding: 2px 7px;
+    border: 1px solid var(--good); border-radius: 4px;
+    background: rgba(10, 26, 20, 0.92); color: var(--good);
+    font: 800 0.72rem/1.2 "Courier New", monospace;
 }
 
 /* question area */
@@ -315,20 +372,18 @@ h2 {
     margin: 9px 0;
     padding: 13px 16px;
     text-align: left;
-    background: #10172b;
+    background: #101522;
     border: 2px solid var(--border);
-    border-radius: 10px;
+    border-left: 4px solid var(--border);
+    border-radius: 6px;
     color: var(--text);
     font-size: 1rem;
     cursor: pointer;
-    transition:
-        border-color 0.18s ease,
-        background 0.18s ease,
-        transform 0.18s ease;
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
 }
 
 .opt:hover:not(:disabled) {
-    background: #25203b;
+    background: #1f1b2e;
     border-color: var(--gold);
     transform: translateX(4px);
 }
@@ -371,16 +426,16 @@ table.tt th {
 }
 
 table.tt td {
-    background: #10172b;
+    background: #101522;
     font-size: 1rem;
 }
 
 .tog {
     width: 43px;
     height: 36px;
-    background: #1d2942;
+    background: #1a2234;
     border: 2px dashed var(--accent);
-    border-radius: 8px;
+    border-radius: 4px;
     color: var(--gold);
     font-family: "Courier New", monospace;
     font-size: 1rem;
@@ -411,28 +466,28 @@ table.tt td {
 
 .btn {
     display: inline-block;
-    padding: 12px 23px;
+    padding: 12px 24px;
     background: var(--gold);
     border: none;
-    border-radius: 10px;
-    color: #21143b;
-    font-size: 1rem;
-    font-weight: 800;
+    border-bottom: 4px solid #b89100;
+    border-radius: 6px;
+    color: #1c1033;
+    font: 800 0.95rem/1.2 "Courier New", monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
     cursor: pointer;
-    transition:
-        transform 0.18s ease,
-        filter 0.18s ease,
-        box-shadow 0.18s ease;
+    transition: transform 0.12s ease, filter 0.12s ease, box-shadow 0.12s ease;
 }
 
 .btn:hover:not(:disabled) {
     transform: translateY(-2px);
-    filter: brightness(1.1);
-    box-shadow: 0 5px 14px rgba(253, 208, 35, 0.2);
+    filter: brightness(1.08);
+    box-shadow: 0 5px 14px rgba(253, 208, 35, 0.25);
 }
 
 .btn:active:not(:disabled) {
-    transform: translateY(0);
+    transform: translateY(2px);
+    border-bottom-width: 2px;
 }
 
 .btn:disabled {
@@ -444,23 +499,41 @@ table.tt td {
 .fb {
     margin-top: 16px;
     padding: 14px 16px;
-    border-radius: 10px;
+    border-radius: 6px;
     font-size: 0.95rem;
     line-height: 1.6;
 }
 
 .fb.good {
     background: #10382e;
-    border: 1px solid var(--good);
+    border: 2px solid var(--good);
     color: #c5ffe8;
+    animation: clearPop 0.25s ease-out;
 }
 
 .fb.bad {
     background: #421b29;
-    border: 1px solid var(--bad);
+    border: 2px solid var(--bad);
     color: #ffd5dc;
+    animation: hitShake 0.35s ease;
 }
 
+@keyframes panelIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes clearPop {
+    0% { transform: scale(0.95); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes hitShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    50% { transform: translateX(6px); }
+    75% { transform: translateX(-4px); }
+}
 
 /* start and end screens */
 
@@ -468,9 +541,18 @@ table.tt td {
     text-align: center;
 }
 
-.big {
-    margin: 10px 0;
-    font-size: 3.5rem;
+.win-badge {
+    width: 82px; height: 82px;
+    margin: 4px auto 12px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: var(--purple);
+    border: 4px solid var(--gold);
+    color: var(--gold);
+    font: 900 1.45rem/1 "Courier New", monospace;
+    letter-spacing: 2px;
+    box-shadow: 0 0 20px rgba(253, 208, 35, 0.28);
+    animation: clearPop 0.35s ease-out;
 }
 
 ul.how {
@@ -483,14 +565,17 @@ ul.how {
     border: 2px solid var(--gold);
 }
 
-/* more circuit components */
+/* circuit panel */
 
 .circuit {
     margin: 14px 0;
     padding: 16px;
-    background: #0d1428;
-    border: 1px solid var(--border);
-    border-radius: 12px;
+    background-color: #0b111c;
+    background-image: linear-gradient(rgba(75, 120, 164, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(75, 120, 164, 0.12) 1px, transparent 1px);
+    background-size: 20px 20px;
+    border: 2px solid #2b4163;
+    border-radius: 6px;
 }
 
 .circuit svg {
@@ -509,17 +594,28 @@ ul.how {
 }
 
 .switch {
-    padding: 11px 20px;
-    background: #202d4c;
+    padding: 10px 20px;
+    background: #1a243a;
     border: 2px solid #4b78a4;
-    border-radius: 9px;
+    border-bottom: 4px solid #152138;
+    border-radius: 6px;
     color: white;
+    font: 800 0.95rem/1 "Courier New", monospace;
     cursor: pointer;
+    transition: transform 0.1s ease, border-color 0.15s ease;
+}
+
+.switch:active {
+    transform: translateY(2px);
+    border-bottom-width: 2px;
 }
 
 .switch.on {
-    background: #304260;
+    background: #2c2444;
     border-color: var(--gold);
+    border-bottom-color: #9c7a00;
+    color: var(--gold);
+    box-shadow: 0 0 10px rgba(253, 208, 35, 0.25);
 }
 
 .output {
@@ -534,7 +630,7 @@ ul.how {
     line-height: 1.6;
 }
 
-/* ---------- RESPONSIVE DESIGN ---------- */
+/* mobile layout */
 
 @media (max-width: 650px) {
     body {
@@ -554,7 +650,7 @@ ul.how {
         font-size: 0.82rem;
     }
     .road {
-        height: 56px;
+        height: 64px;
     }
     .road-label {
         font-size: 0.65rem;
