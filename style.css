@@ -426,16 +426,16 @@ table.tt th {
 }
 
 table.tt td {
-    background: #10172b;
+    background: #101522;
     font-size: 1rem;
 }
 
 .tog {
     width: 43px;
     height: 36px;
-    background: #1d2942;
+    background: #1a2234;
     border: 2px dashed var(--accent);
-    border-radius: 8px;
+    border-radius: 4px;
     color: var(--gold);
     font-family: "Courier New", monospace;
     font-size: 1rem;
@@ -565,14 +565,17 @@ ul.how {
     border: 2px solid var(--gold);
 }
 
-/* more circuit components */
+/* circuit panel */
 
 .circuit {
     margin: 14px 0;
     padding: 16px;
-    background: #0d1428;
-    border: 1px solid var(--border);
-    border-radius: 12px;
+    background-color: #0b111c;
+    background-image: linear-gradient(rgba(75, 120, 164, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(75, 120, 164, 0.12) 1px, transparent 1px);
+    background-size: 20px 20px;
+    border: 2px solid #2b4163;
+    border-radius: 6px;
 }
 
 .circuit svg {
@@ -591,17 +594,28 @@ ul.how {
 }
 
 .switch {
-    padding: 11px 20px;
-    background: #202d4c;
+    padding: 10px 20px;
+    background: #1a243a;
     border: 2px solid #4b78a4;
-    border-radius: 9px;
+    border-bottom: 4px solid #152138;
+    border-radius: 6px;
     color: white;
+    font: 800 0.95rem/1 "Courier New", monospace;
     cursor: pointer;
+    transition: transform 0.1s ease, border-color 0.15s ease;
+}
+
+.switch:active {
+    transform: translateY(2px);
+    border-bottom-width: 2px;
 }
 
 .switch.on {
-    background: #304260;
+    background: #2c2444;
     border-color: var(--gold);
+    border-bottom-color: #9c7a00;
+    color: var(--gold);
+    box-shadow: 0 0 10px rgba(253, 208, 35, 0.25);
 }
 
 .output {
