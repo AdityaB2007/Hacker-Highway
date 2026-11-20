@@ -264,6 +264,19 @@ h2 {
     to { background-position-x: -68px; }
 }
 
+.road.focused.lane-2::before { animation-duration: 0.44s; }
+.road.focused.lane-3::before { animation-duration: 0.35s; }
+.road.focused.lane-4::before { animation-duration: 0.27s; }
+.road.focused.lane-5::before { animation-duration: 0.2s; }
+.road.focused.lane-5 { border-color: var(--bad); }
+
+.road.focused .road-label { top: 14px; left: 10px; font-size: 0.74rem; }
+.road.focused .car { top: 58%; width: 96px; height: 58px; }
+.road.focused .car::after { width: 72px; }
+.road.focused .car.preview-car { width: 80px; height: 34px; }
+.road.focused .traffic { top: 58%; width: 88px; height: 54px; }
+.road.focused .flag { width: 22px; background-size: 11px 11px; }
+
 .road-label {
     position: absolute;
     top: 4px;
@@ -695,6 +708,12 @@ ul.how {
         width: 48px;
         height: 31px;
     }
+    .lane-step small { display: none; }
+    .road.focused { height: 96px; }
+    .road.focused .road-label { top: 12px; font-size: 0.66rem; }
+    .road.focused .car { top: 60%; width: 68px; height: 42px; }
+    .road.focused .car.preview-car { width: 60px; height: 26px; }
+    .road.focused .traffic { top: 60%; width: 62px; height: 38px; }
     .q {
         font-size: 1.05rem;
     }
