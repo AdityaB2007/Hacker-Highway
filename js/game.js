@@ -1,4 +1,3 @@
-// game state and setup
 const LANES = window.LANES || [];
 const REDEMPTION = window.REDEMPTION || {};
 const MAX_LIVES = 3;
@@ -19,7 +18,6 @@ function newGame() {
     };
 }
 
-// logic gate output evaluation
 function gateOutput(g, a, b) {
     if (g === "AND") return a & b;
     if (g === "OR") return a | b;
@@ -29,7 +27,6 @@ function gateOutput(g, a, b) {
     return 0;
 }
 
-// draw circuit svg diagram
 function drawCircuit() {
     const q = S.cur, [a, b] = S.inputs, color = "#9dc6ff";
     const isAnd = q.gate === "AND" || q.gate === "NAND";
@@ -49,7 +46,6 @@ function drawCircuit() {
     </svg><div class="output">Press Confirm to check your circuit.</div>`;
 }
 
-// toggle circuit switches
 function toggleInput(i) {
     if (S.locked) return;
     S.inputs[i] = 1 - S.inputs[i];
@@ -58,7 +54,6 @@ function toggleInput(i) {
     if (fb) fb.innerHTML = "";
 }
 
-// submit circuit and penalize wrong gate
 function submitCircuit() {
     if (S.locked) return;
     const q = S.cur;
@@ -69,7 +64,6 @@ function submitCircuit() {
     resolve(ok);
 }
 
-// cycle truth table cell between 0 and 1
 function cycle(btn) {
     if (S.locked) return;
     btn.textContent = btn.textContent === "1" ? "0" : "1";
@@ -78,7 +72,6 @@ function cycle(btn) {
     if (sub) sub.disabled = ![...document.querySelectorAll(".tog")].every(b => b.textContent !== "?");
 }
 
-// check truth table fill
 function submitFill() {
     if (S.locked) return;
     S.locked = true;
@@ -94,7 +87,6 @@ function submitFill() {
     resolve(ok);
 }
 
-// handle multiple choice pick
 function pick(i) {
     if (S.locked) return;
     S.locked = true;
@@ -108,7 +100,6 @@ function pick(i) {
     resolve(ok);
 }
 
-// hud with signal light and road progress
 function hud(redeem) {
     const lane = LANES[S.lane];
     const roads = LANES.map((item, i) => {
@@ -121,7 +112,6 @@ function hud(redeem) {
     return `<div class="panel"><div class="hud"><div>${lane.name}</div><div>Lane ${S.lane + 1} / ${LANES.length}</div><div class="traffic-status"><span>Lives: ${S.lives}/3</span><div class="traffic-signal"><span class="bulb red ${S.lives === 1 ? 'on' : ''}"></span><span class="bulb yellow ${S.lives === 2 ? 'on' : ''}"></span><span class="bulb green ${S.lives === 3 ? 'on' : ''}"></span></div></div></div><div class="highway">${roads}</div></div>`;
 }
 
-// display current active question
 function showQuestion(redeem = false) {
     if (!S) newGame();
     S.locked = false;
@@ -148,7 +138,6 @@ function showQuestion(redeem = false) {
     if (typeof window.scrollTo === "function") window.scrollTo(0, 0);
 }
 
-// resolve answer outcome and rotate on failure
 function resolve(ok) {
     const q = S.cur, fb = document.getElementById("fb");
     if (ok) {
@@ -177,7 +166,6 @@ function resolve(ok) {
     }
 }
 
-// advance lane after clearing challenge
 function advance() {
     if (S.redeem) { S.lives = 1; S.redeem = false; showQuestion(); return; }
     const clearedLane = S.lane + 1;
@@ -190,7 +178,6 @@ function advance() {
     if (screen) screen.innerHTML = hud() + `<div class="panel center"><div class="big">🛣️</div><h2>Lane ${clearedLane} cleared!</h2><p>Merging into <b>${LANES[S.lane].name}</b>...</p><button class="btn" onclick="showQuestion()">Merge →</button></div>`;
 }
 
-// handle redemption round when lives hit zero
 function afterZero() {
     if (S.usedRedemption) { showGameOver(); return; }
     S.usedRedemption = true;
@@ -198,7 +185,6 @@ function afterZero() {
     if (screen) screen.innerHTML = hud(true) + `<div class="panel redeem center"><div class="big">🆘</div><h2>Out of lives!</h2><p>You get one shot at redemption to earn back a life.</p><button class="btn" onclick="showQuestion(true)">Take Redemption question</button></div>`;
 }
 
-// victory screen with lsu tiger
 function showWin() {
     S.lane = LANES.length - 1;
     const screen = document.getElementById("screen");
@@ -206,7 +192,6 @@ function showWin() {
     screen.innerHTML = `<div class="panel center"><div class="big">🐯</div><h2>You made it!</h2><p style="font-size:1.15rem;font-weight:bold;color:var(--good)">Congratulations you survived Baton Rouge traffic and made it to LSU</p><p>Correct gates: ${S.correct} · Collisions: ${S.mistakes}${S.usedRedemption ? " · Redemption used" : ""}</p><button class="btn" onclick="showStart()">Drive again</button></div>`;
 }
 
-// gridlock game over screen
 function showGameOver() {
     const screen = document.getElementById("screen");
     if (!screen) return;
