@@ -238,6 +238,36 @@ h2 {
     transform: translateY(-50%);
     transition: left 0.7s ease;
     filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.6));
+    animation: carDrive 0.35s ease-in-out infinite alternate;
+}
+
+.car::after {
+    content: "";
+    position: absolute;
+    left: 92%; top: 18%;
+    width: 44px; height: 64%;
+    clip-path: polygon(0 32%, 100% 0, 100% 100%, 0 68%);
+    background: linear-gradient(90deg, rgba(253, 208, 35, 0.45), transparent);
+    pointer-events: none;
+}
+
+.car.preview-car {
+    width: 52px; height: 22px;
+    background: var(--purple);
+    border: 2px solid var(--gold);
+    border-radius: 6px 14px 6px 6px;
+    box-shadow: inset 0 -6px 0 var(--gold);
+    animation: previewCruise 4.2s linear infinite, carDrive 0.3s ease-in-out infinite alternate;
+}
+
+@keyframes carDrive {
+    from { transform: translateY(calc(-50% - 1px)); }
+    to { transform: translateY(calc(-50% + 1px)); }
+}
+
+@keyframes previewCruise {
+    0% { left: 6%; }
+    100% { left: 82%; }
 }
 
 .car svg {
