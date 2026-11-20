@@ -118,9 +118,15 @@ h2 {
     align-items: center;
     flex-wrap: wrap;
     gap: 12px;
+    padding: 10px 14px;
+    background: #10131a;
+    border: 2px solid var(--border);
+    border-radius: 6px;
     font-family: "Courier New", monospace;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
 }
 
 .traffic-status {
@@ -131,12 +137,12 @@ h2 {
 
 .traffic-signal {
     display: flex;
-    flex-direction: column;
-    gap: 5px;
-    padding: 7px;
+    flex-direction: row;
+    gap: 6px;
+    padding: 6px 9px;
     background: #080b13;
     border: 2px solid #535c73;
-    border-radius: 10px;
+    border-radius: 6px;
 }
 
 .bulb {
@@ -161,6 +167,12 @@ h2 {
 .bulb.on {
     opacity: 1;
     box-shadow: 0 0 12px currentColor;
+    animation: signalPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes signalPulse {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.35); }
 }
 
 .bulb.red.on {
