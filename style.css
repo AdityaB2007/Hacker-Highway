@@ -372,20 +372,18 @@ h2 {
     margin: 9px 0;
     padding: 13px 16px;
     text-align: left;
-    background: #10172b;
+    background: #101522;
     border: 2px solid var(--border);
-    border-radius: 10px;
+    border-left: 4px solid var(--border);
+    border-radius: 6px;
     color: var(--text);
     font-size: 1rem;
     cursor: pointer;
-    transition:
-        border-color 0.18s ease,
-        background 0.18s ease,
-        transform 0.18s ease;
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
 }
 
 .opt:hover:not(:disabled) {
-    background: #25203b;
+    background: #1f1b2e;
     border-color: var(--gold);
     transform: translateX(4px);
 }
@@ -468,28 +466,28 @@ table.tt td {
 
 .btn {
     display: inline-block;
-    padding: 12px 23px;
+    padding: 12px 24px;
     background: var(--gold);
     border: none;
-    border-radius: 10px;
-    color: #21143b;
-    font-size: 1rem;
-    font-weight: 800;
+    border-bottom: 4px solid #b89100;
+    border-radius: 6px;
+    color: #1c1033;
+    font: 800 0.95rem/1.2 "Courier New", monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
     cursor: pointer;
-    transition:
-        transform 0.18s ease,
-        filter 0.18s ease,
-        box-shadow 0.18s ease;
+    transition: transform 0.12s ease, filter 0.12s ease, box-shadow 0.12s ease;
 }
 
 .btn:hover:not(:disabled) {
     transform: translateY(-2px);
-    filter: brightness(1.1);
-    box-shadow: 0 5px 14px rgba(253, 208, 35, 0.2);
+    filter: brightness(1.08);
+    box-shadow: 0 5px 14px rgba(253, 208, 35, 0.25);
 }
 
 .btn:active:not(:disabled) {
-    transform: translateY(0);
+    transform: translateY(2px);
+    border-bottom-width: 2px;
 }
 
 .btn:disabled {
