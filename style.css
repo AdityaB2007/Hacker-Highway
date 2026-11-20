@@ -246,6 +246,24 @@ h2 {
 .road.done { background: #162e27; border-color: var(--good); }
 .road.done::before { animation: none; opacity: 0.45; }
 
+.road.focused {
+    height: 120px;
+    background: linear-gradient(180deg, #161922 0 10px, rgba(240, 242, 247, 0.25) 10px 12px, #252035 12px calc(100% - 12px), rgba(240, 242, 247, 0.25) calc(100% - 12px) calc(100% - 10px), #161922 calc(100% - 10px));
+    box-shadow: inset 0 0 24px rgba(253, 208, 35, 0.14);
+}
+
+.road.focused::before {
+    top: 58%; height: 5px; opacity: 0.92;
+    background: repeating-linear-gradient(90deg, var(--road-line) 0 34px, transparent 34px 68px);
+    background-size: 68px 5px;
+    animation: roadScrollWide 0.55s linear infinite;
+}
+
+@keyframes roadScrollWide {
+    from { background-position-x: 0; }
+    to { background-position-x: -68px; }
+}
+
 .road-label {
     position: absolute;
     top: 4px;
