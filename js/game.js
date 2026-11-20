@@ -102,14 +102,14 @@ function pick(i) {
 
 function hud(redeem) {
     const lane = LANES[S.lane];
-    const roads = LANES.map((item, i) => {
-        const completed = i < S.lane;
-        const active = i === S.lane;
-        const progress = completed ? 88 : active ? 10 : 5;
-        const obstacles = active ? [35, 60, 80].map((x, j) => `<div class="traffic" style="left:${x}%" title="${RIVALS[j].name}">${rivalCar(RIVALS[j])}</div>`).join("") : "";
-        return `<div class="road ${completed ? 'done' : active ? 'active' : ''}"><span class="road-label">Lane ${i + 1} - ${["Very Easy", "Easy", "Medium", "Hard", "Very Hard"][i]}</span>${obstacles}${active ? `<div class="car" style="left:${progress}%">${LSU_CAR}</div>` : ""}${completed ? '<span class="road-check">CLEAR</span>' : ''}<span class="flag" aria-label="Finish"></span></div>`;
+    const tiers = ["Very Easy", "Easy", "Medium", "Hard", "Very Hard"];
+    const steps = LANES.map((item, i) => {
+        const cls = i < S.lane ? "done" : i === S.lane ? "active" : "";
+        return `<div class="lane-step ${cls}"><span>L${i + 1}</span><small>${tiers[i]}</small></div>`;
     }).join("");
-    return `<div class="panel"><div class="hud"><div>${lane.name}</div><div>Lane ${S.lane + 1} / ${LANES.length}</div><div class="traffic-status"><span>Lives: ${S.lives}/3</span><div class="traffic-signal"><span class="bulb red ${S.lives === 1 ? 'on' : ''}"></span><span class="bulb yellow ${S.lives === 2 ? 'on' : ''}"></span><span class="bulb green ${S.lives === 3 ? 'on' : ''}"></span></div></div></div><div class="highway">${roads}</div></div>`;
+    const obstacles = [34, 57, 77].map((x, j) => `<div class="traffic" style="left:${x}%" title="${RIVALS[j].name}">${rivalCar(RIVALS[j])}</div>`).join("");
+    const road = `<div class="road active focused lane-${S.lane + 1}"><span class="road-label">Lane ${S.lane + 1} - ${tiers[S.lane]}</span>${obstacles}<div class="car" style="left:10%">${LSU_CAR}</div><span class="flag" aria-label="Finish"></span></div>`;
+    return `<div class="panel"><div class="hud"><div>${lane.name}</div><div>Lane ${S.lane + 1} / ${LANES.length}</div><div class="traffic-status"><span>Lives: ${S.lives}/3</span><div class="traffic-signal"><span class="bulb red ${S.lives === 1 ? 'on' : ''}"></span><span class="bulb yellow ${S.lives === 2 ? 'on' : ''}"></span><span class="bulb green ${S.lives === 3 ? 'on' : ''}"></span></div></div></div><div class="lane-strip">${steps}</div><div class="highway">${road}</div></div>`;
 }
 
 function showQuestion(redeem = false) {
