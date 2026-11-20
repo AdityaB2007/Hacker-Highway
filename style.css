@@ -541,9 +541,18 @@ table.tt td {
     text-align: center;
 }
 
-.big {
-    margin: 10px 0;
-    font-size: 3.5rem;
+.win-badge {
+    width: 82px; height: 82px;
+    margin: 4px auto 12px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: var(--purple);
+    border: 4px solid var(--gold);
+    color: var(--gold);
+    font: 900 1.45rem/1 "Courier New", monospace;
+    letter-spacing: 2px;
+    box-shadow: 0 0 20px rgba(253, 208, 35, 0.28);
+    animation: clearPop 0.35s ease-out;
 }
 
 ul.how {
