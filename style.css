@@ -189,10 +189,28 @@ h2 {
 
 /* highway styling */
 
+.lane-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    margin-top: 12px;
+}
+
+.lane-step {
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    padding: 6px 4px; background: #10131a; border: 2px solid var(--border);
+    border-radius: 5px; color: var(--muted);
+    font: 800 0.78rem/1.2 "Courier New", monospace;
+}
+
+.lane-step small { font-size: 0.62rem; font-weight: 600; }
+.lane-step.done { background: #162e27; border-color: var(--good); color: var(--good); }
+.lane-step.active { background: #252035; border-color: var(--gold); color: var(--gold); box-shadow: 0 0 10px rgba(253, 208, 35, 0.2); }
+
 .highway {
     display: grid;
     gap: 9px;
-    margin-top: 18px;
+    margin-top: 10px;
 }
 
 .road {
