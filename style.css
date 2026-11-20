@@ -1,22 +1,22 @@
 /* css variables */
 
 :root {
-    --bg: #090d1b;
-    --panel: #151b30;
-    --panel-light: #202944;
+    --bg: #0e1015;
+    --panel: #171a22;
+    --panel-light: #202533;
     --purple: #461d7c;
     --purple-light: #7044a5;
     --gold: #fdd023;
-    --road: #252b3d;
-    --road-line: #e9c52b;
-    --text: #f1f2f8;
-    --muted: #a3abc2;
-    --accent: #b18ae0;
-    --good: #35d69a;
-    --bad: #ff5c70;
+    --road: #1f232b;
+    --road-line: #f5c518;
+    --text: #f0f2f7;
+    --muted: #98a0b5;
+    --accent: #fdd023;
+    --good: #2ee59d;
+    --bad: #ff4d63;
     --warning: #ffca45;
-    --border: #343d59;
-    --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    --border: #2e3445;
+    --shadow: 0 5px 0 rgba(0, 0, 0, 0.55);
 }
 
 /* global styles */
@@ -34,12 +34,8 @@ body {
     min-height: 100vh;
     padding: 20px;
     font-family: "Segoe UI", system-ui, sans-serif;
-    background:
-        radial-gradient(
-            circle at top,
-            #20143b 0%,
-            var(--bg) 55%
-        );
+    background-color: var(--bg);
+    background-image: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0 2px, transparent 2px 6px);
     color: var(--text);
     display: flex;
     justify-content: center;
@@ -73,10 +69,9 @@ h1 {
     font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 900;
     letter-spacing: 3px;
+    text-transform: uppercase;
     color: var(--gold);
-    text-shadow:
-        0 0 12px rgba(253, 208, 35, 0.25),
-        3px 3px 0 var(--purple);
+    text-shadow: 3px 3px 0 var(--purple), 6px 6px 0 #000;
 }
 
 h2 {
@@ -91,19 +86,28 @@ h2 {
     line-height: 1.5;
 }
 
-/* styling the panels */
+/* panels */
 
 .panel {
     padding: 22px;
     margin-bottom: 16px;
     background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 16px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
     box-shadow: var(--shadow);
+    animation: panelIn 0.22s ease-out;
 }
 
 .panel p {
     line-height: 1.65;
+}
+
+.game-footer {
+    text-align: center;
+    margin-top: 10px;
+    color: var(--muted);
+    font-family: "Courier New", monospace;
+    font-size: 0.8rem;
 }
 
 /* game HUD */
@@ -534,7 +538,7 @@ ul.how {
     line-height: 1.6;
 }
 
-/* ---------- RESPONSIVE DESIGN ---------- */
+/* mobile layout */
 
 @media (max-width: 650px) {
     body {
