@@ -1,26 +1,22 @@
-# Hacker Highway - Fall 2026 Game Project
+# Hacker Highway
 
-## Description:
-Ever been stuck in Baton Rouge traffic? Then you know that getting anywhere can feel like solving a complicated logic circuit.
+CSC 3501 (Computer Organization and Design) project at LSU.
 
-Inspired by the daily struggles of navigating Baton Rouge roads, <b>Hacker Highway</b> is a browser-based educational game developed for <b>CSC 3501: Computer Organization and Design</b> at LSU. Players must survive five increasingly difficult lanes of digital logic challenges, covering logic gates, truth tables, Boolean algebra, binary addition, and half/full adders.
+## About
+Browser game where you drive through five lanes of digital logic questions (logic gates, truth tables, Boolean algebra, and half/full adders). You start with 3 lives and get one redemption question if you run out.
 
-Just like Baton Rouge traffic, progress isn't guaranteed. Answer questions correctly, navigate each lane, and try to make it to the finish line without losing your mind!
+## Running the Game
+Open `index.html` in any browser.
 
-### How to Play:
-- Open `index.html` in a modern web browser.
-- Start your journey in Lane 1.
-- Answer multiple-choice digital logic questions.
-- Get the answers right to advance through traffic.
-- Survive all five lanes to reach your destination!
+## How It Works
+- 5 lanes, increasing in difficulty from basic gates to adders.
+- Each lane picks 1 random question from its pool of 3 (multiple choice, truth table fill-in, or interactive gate circuit).
+- Wrong answers cost a life and swap in a different question from the same lane.
+- Clear all 5 lanes to reach LSU.
 
-### Contributors:
-<ul>
-  <li>Logan Allsup</li>
-  <li>Aditya Baisakh</li>
-  <li>Ryan Negrin</li>
-  <li>John Ramirez</li>
-  <li>Bryce Sloan</li>
-</ul>
-
-Work in progress... (Much like traffic on I-10.)
+## Team
+- Logan Allsup
+- Aditya Baisakh
+- Ryan Negrin
+- John Ramirez
+- Bryce Sloan
